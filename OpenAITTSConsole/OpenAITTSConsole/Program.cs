@@ -45,12 +45,7 @@ while (isRunning)
             HttpClient client = new();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            TextToSpeechRequest textToSpeechRequest = new()
-            {
-                Model = model,
-                Input = input,
-                Voice = voice,
-            };
+            TextToSpeechRequest textToSpeechRequest = new(model, input, voice);
 
             HttpResponseMessage result = await client.PostAsJsonAsync(textToSpeechEndpoint, textToSpeechRequest);
 

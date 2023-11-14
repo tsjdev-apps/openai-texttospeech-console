@@ -3,7 +3,8 @@ using Spectre.Console;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-var isRunning = true;
+
+bool isRunning = true;
 
 while (isRunning)
 {
@@ -51,7 +52,7 @@ while (isRunning)
 
             try
             {
-                var mp3Bytes = await result.Content.ReadAsByteArrayAsync();
+                byte[] mp3Bytes = await result.Content.ReadAsByteArrayAsync();
                 File.WriteAllBytes(filePath, mp3Bytes);
 
                 AnsiConsole.MarkupLine($"You're MP3 file was created successfully. You will find it here: [yellow]{filePath}[/]");
@@ -140,9 +141,7 @@ static string GetModel()
         new SelectionPrompt<string>()
         .Title("Please select the [yellow]model[/].")
         .PageSize(10)
-        .AddChoices(new[] {
-            "TTS-1", "TTS-1-HD"
-        }));
+        .AddChoices(["TTS-1", "TTS-1-HD"]));
 
 /// <summary>
 ///     Prompts the user for the voice for text-to-speech.
@@ -153,10 +152,7 @@ static string GetVoice()
         new SelectionPrompt<string>()
         .Title("Please select the [yellow]voice[/].")
         .PageSize(10)
-        .AddChoices(new[] {
-            "Alloy", "Echo", "Fable",
-            "Onyx", "Nova", "Shimmer",
-        }));
+        .AddChoices(["Alloy", "Echo", "Fable", "Onyx", "Nova", "Shimmer"]));
 
 /// <summary>
 ///     Prompts the user for the file path to store the mp3 file.
